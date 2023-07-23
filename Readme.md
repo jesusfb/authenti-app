@@ -66,6 +66,9 @@ dotnet ef database update -c ApplicationDbContext
 
 ```
 
+##### To see the build errors, run :
+> dotnet build
+
 ---
 
 #### Getting errors like
@@ -92,3 +95,6 @@ Note: Your secret key should be 16 characters minimum
 
 ##### You can add packages using the .NET CLI
 > dotnet add package DotNetEnv
+
+##### Remove a package
+> dotnet remove package DotEnv

@@ -13,5 +13,7 @@ namespace AuthAuthenticationApi.Authentication
 
         [Required(ErrorMessage = "Password name is required")]
         public string Password { get; set; }
+
+
     }
 }

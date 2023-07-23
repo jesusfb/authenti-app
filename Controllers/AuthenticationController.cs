@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+
 
 namespace AuthAuthenticationApi.Controllers
 {
@@ -22,11 +25,14 @@ namespace AuthAuthenticationApi.Controllers
         private readonly RoleManager<IdentityRole> roleManager; // Use IdentityRole instead of ApplicationUser for RoleManager
         private readonly IConfiguration _configuration;
 
+
+
         public AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             _configuration = configuration;
+
         }
 
         [HttpPost]
@@ -158,5 +164,9 @@ namespace AuthAuthenticationApi.Controllers
 
             return StatusCode(StatusCodes.Status500InternalServerError, new Response<object> { Status = "Error", Message = "Failed to retrieve user profile" });
         }
+
+
+
+
     }
 }

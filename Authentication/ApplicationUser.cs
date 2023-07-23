@@ -5,7 +5,7 @@ namespace AuthAuthenticationApi.Authentication
 {
 	public class ApplicationUser:IdentityUser
 	{
-		
-	}
+        
+    }
 }
 
