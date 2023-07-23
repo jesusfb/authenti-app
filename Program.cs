@@ -4,9 +4,20 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-
+using DotNetEnv;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Load environment variables from .env file
+Env.Load();
+
+// Set up configuration
+builder.Configuration.AddJsonFile("appsettings.json");
+
+// Configure the configuration to read environment variables
+builder.Configuration.AddEnvironmentVariables();
+
 
 // Add services to the container.
 
@@ -43,9 +54,9 @@ builder.Services.AddAuthentication(option => {
     {
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidAudience = builder.Configuration["JWT:ValidAudience"],
-        ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+        ValidAudience = builder.Configuration["ValidAudience"],
+        ValidIssuer = builder.Configuration["ValidIssuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Secret"]))
 
 
     };
