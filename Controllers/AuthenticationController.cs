@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AuthAuthenticationApi.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -130,6 +131,32 @@ namespace AuthAuthenticationApi.Controllers
                 await userManager.AddToRoleAsync(user, UserRoles.Admin);
             }
             return Ok(new Response<object> { Status = "Success", Message = "User created Successfully" });
+        }
+
+        [HttpGet]
+        [Route("Profile")]
+        [Authorize] // Require authentication for this endpoint
+        public async Task<IActionResult> UserProfile()
+        {
+            // Get the authenticated user's information from the token
+            var userName = User.Identity.Name;
+            var user = await userManager.FindByNameAsync(userName);
+
+            if (user != null)
+            {
+                // You can customize the information you want to include in the user profile here
+                var userProfile = new
+                {
+                    user.Id,
+                    user.UserName,
+                    user.Email,
+                    // Add any other properties you want to include in the profile
+                };
+
+                return Ok(new Response<object> { Status = "Success", Data = userProfile , Message="User retrieved successfully"});
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError, new Response<object> { Status = "Error", Message = "Failed to retrieve user profile" });
         }
     }
 }
