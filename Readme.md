@@ -86,3 +86,9 @@ Use payload like:
 It means the route http Verb is not set properly
 
 Note: Your secret key should be 16 characters minimum
+
+
+---
+
+##### You can add packages using the .NET CLI
+> dotnet add package DotNetEnv
