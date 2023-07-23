@@ -35,7 +35,7 @@ namespace AuthAuthenticationApi.Controllers
             var userExist = await userManager.FindByNameAsync(model.Username);
             if (userExist != null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User Already Exists" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<object> { Status = "Error", Message = "User Already Exists" });
             }
 
             ApplicationUser user = new ApplicationUser()
@@ -52,10 +52,10 @@ namespace AuthAuthenticationApi.Controllers
 
             if (!result.Succeeded)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User Creation Failed" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<object> { Status = "Error", Message = "User Creation Failed" });
             }
 
-            return Ok(new Response { Status = "Success", Message = "User created Successfully" });
+            return Ok(new Response<object> { Status = "Success", Message = "User created Successfully" });
         }
 
         [HttpPost]
@@ -102,7 +102,7 @@ namespace AuthAuthenticationApi.Controllers
             var userExist = await userManager.FindByNameAsync(model.Username);
             if (userExist != null)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User Already Exists" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<object> { Status = "Error", Message = "User Already Exists" });
             }
 
             ApplicationUser user = new ApplicationUser()
@@ -119,7 +119,7 @@ namespace AuthAuthenticationApi.Controllers
 
             if (!result.Succeeded)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User Creation Failed" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response<object> { Status = "Error", Message = "User Creation Failed" });
             }
             if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
                 await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
@@ -129,7 +129,7 @@ namespace AuthAuthenticationApi.Controllers
             {
                 await userManager.AddToRoleAsync(user, UserRoles.Admin);
             }
-            return Ok(new Response { Status = "Success", Message = "User created Successfully" });
+            return Ok(new Response<object> { Status = "Success", Message = "User created Successfully" });
         }
     }
 }
