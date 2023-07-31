@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.DataProtection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Load environment variables from .env file
-Env.Load();
+//Env.Load();
 
 // Set up configuration
 builder.Configuration.AddJsonFile("appsettings.json");
@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen();
 // entity framwrok
 builder.Services.AddDbContext<ApplicationDbContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr"));
+    option.UseMySQL(builder.Configuration.GetConnectionString("ConnStr"));
 });
 
 //Identity
